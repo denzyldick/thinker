@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-const URl = "http://localhost:8008/predict"
+const URl = "0.0.0.0:8008/predict"
 
 func think(w http.ResponseWriter, r *http.Request) {
 
@@ -46,16 +46,18 @@ func think(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(string(body))
 	client := &http.Client{}
 	req, err := http.NewRequest(http.MethodPost, URl, bytes.NewBuffer(body))
+	log.Println(err)
+
 	response := response{}
 	resp, err := client.Do(req)
-	fmt.Println(resp, err)
+	log.Println(err)
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
 		data, _ := ioutil.ReadAll(resp.Body)
 
 		json.Unmarshal(data, &response)
-		w.Header().Add("Content-type","application/json")
+		w.Header().Add("Content-type", "application/json")
 
 		w.Write(data)
 		w.WriteHeader(200)
