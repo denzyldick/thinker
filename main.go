@@ -55,13 +55,11 @@ func think(w http.ResponseWriter, r *http.Request) {
 
 	if resp.StatusCode == http.StatusOK {
 		data, _ := ioutil.ReadAll(resp.Body)
-
+		fmt.Println(image[0], hint[0], "predicted")
 		json.Unmarshal(data, &response)
 		w.Header().Add("Content-type", "application/json")
-
-		w.Write(data)
 		w.WriteHeader(200)
-		fmt.Println(image[0], hint[0], "predicted")
+		w.Write(data)
 	}
 }
 
