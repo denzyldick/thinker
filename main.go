@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-const URl = "localhost:8008/predict"
+const URl = "http://localhost:8008/predict"
 
 func think(w http.ResponseWriter, r *http.Request) {
 
