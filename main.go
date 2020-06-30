@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-const URl = "http://localhost:8008/predict"
+const URl = "http://localhost:8080/predict"
 
 func think(w http.ResponseWriter, r *http.Request) {
 
@@ -43,7 +43,6 @@ func think(w http.ResponseWriter, r *http.Request) {
 }`)
 	}
 
-	fmt.Println(string(body))
 	client := &http.Client{}
 	req, err := http.NewRequest(http.MethodPost, URl, bytes.NewBuffer(body))
 	log.Println(err)
@@ -51,15 +50,19 @@ func think(w http.ResponseWriter, r *http.Request) {
 	response := response{}
 	resp, err := client.Do(req)
 	log.Println(err)
-	defer resp.Body.Close()
 
-	if resp.StatusCode == http.StatusOK {
-		data, _ := ioutil.ReadAll(resp.Body)
-		fmt.Println(image[0], hint[0], "predicted")
-		json.Unmarshal(data, &response)
-		w.Header().Add("Content-type", "application/json")
-		w.WriteHeader(200)
-		w.Write(data)
+	if err == nil {
+		fmt.Println("status code", resp.StatusCode)
+		defer resp.Body.Close()
+
+		if resp.StatusCode == http.StatusOK {
+			data, _ := ioutil.ReadAll(resp.Body)
+			fmt.Println(image[0], hint[0], "predicted")
+			json.Unmarshal(data, &response)
+			w.Header().Add("Content-type", "application/json")
+			w.WriteHeader(200)
+			w.Write(data)
+		}
 	}
 }
 
@@ -72,6 +75,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/think", think)
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8081", nil)
 	fmt.Println(err)
 }

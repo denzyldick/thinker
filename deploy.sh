@@ -1,4 +1,4 @@
-curl -X PUT 'http://localhost:8008/services/ilsvrc_googlenet' -d '{
+curl -X PUT 'http://localhost:8080/services/ilsvrc_googlenet' -d '{
  "description": "image classification service",
  "model": {
   "repository": "/opt/models/ilsvrc_googlenet",
