@@ -15,3 +15,5 @@ services:
     container_name: thinker
     ports:
       - "8009:8080"
+    links:
+      - deepdetect
