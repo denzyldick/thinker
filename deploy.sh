@@ -14,7 +14,7 @@ curl -X PUT 'http://134.209.84.9:8080/services/ilsvrc_googlenet' -d '{
  }
 }'
 
-curl -X PUT http://134.209.84.9:8080/services/faces -d '{
+curl -X PUT 'http://134.209.84.9:8080/services/faces' -d '{
  "description": "face detection service",
  "model": {
   "repository": "/opt/models/faces",
@@ -31,7 +31,7 @@ curl -X PUT http://134.209.84.9:8080/services/faces -d '{
 }'
 
 
-curl -X PUT http://134.209.84.9:8080/faces_emo -d '{
+curl -X PUT 'http://134.209.84.9:8080/faces_emo' -d '{
  "description": "face emotion detection service",
  "model": {
   "repository": "/opt/models/faces_emo",
