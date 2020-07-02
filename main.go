@@ -43,6 +43,46 @@ func think(w http.ResponseWriter, r *http.Request) {
 }`)
 	}
 
+	if hint[0] == "faces" {
+		body = []byte(`{
+  "service": "faces",
+  "parameters": {
+    "input": {},
+    "output": {
+      "confidence_threshold": 0.4,
+      "bbox": true
+    },
+    "mllib": {
+      "gpu": true
+    }
+  },
+  "data": [
+"` + image[0] + `"
+  ]
+}'
+`)
+	}
+	if hint[0] == "emotions" {
+		body = []byte(`{
+  "service": "faces_emo",
+  "parameters": {
+    "input": {},
+    "output": {
+      "confidence_threshold": 0.4,
+      "bbox": true
+    },
+    "mllib": {
+      "gpu": true
+    }
+  },
+  "data": [
+    "` + image[0] + `"
+  ]
+}'
+
+`)
+	}
+
 	client := &http.Client{}
 	req, err := http.NewRequest(http.MethodPost, URl, bytes.NewBuffer(body))
 	log.Println(err)
