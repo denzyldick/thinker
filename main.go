@@ -59,7 +59,7 @@ func think(w http.ResponseWriter, r *http.Request) {
   "data": [
 "` + image[0] + `"
   ]
-}'
+}
 `)
 	}
 	if hint[0] == "emotions" {
@@ -78,7 +78,7 @@ func think(w http.ResponseWriter, r *http.Request) {
   "data": [
     "` + image[0] + `"
   ]
-}'
+}
 
 `)
 	}
